@@ -1,0 +1,772 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1179</width>
+    <height>701</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>多道批处理系统两级调度模拟</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>10</y>
+      <width>630</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>运行作业</string>
+    </property>
+    <widget class="QTableWidget" name="TABLE_RUN">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>611</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <column>
+      <property name="text">
+       <string>作业</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>到达时间</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>需运行时间(S)</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>内存需要(KB)</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>磁带机使用号</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>已运行时间(S)</string>
+      </property>
+     </column>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_2">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>110</y>
+      <width>630</width>
+      <height>200</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>内存就绪队列</string>
+    </property>
+    <widget class="QTableWidget" name="TABLE_READY">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>611</width>
+       <height>160</height>
+      </rect>
+     </property>
+     <column>
+      <property name="text">
+       <string>作业</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>到达时间</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>需运行时间(S)</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>内存需要(KB)</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>磁带机使用号</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>已运行时间(S)</string>
+      </property>
+     </column>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_3">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>10</y>
+      <width>520</width>
+      <height>251</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>作业输入</string>
+    </property>
+    <widget class="QTableWidget" name="TABLE_INPUT_JOB">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>510</width>
+       <height>180</height>
+      </rect>
+     </property>
+     <column>
+      <property name="text">
+       <string>作业</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>xx秒后到达</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>需运行时间(S)</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>内存需要(KB)</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>磁带机需要</string>
+      </property>
+     </column>
+    </widget>
+    <widget class="QPushButton" name="BTN_ADD_LINE">
+     <property name="geometry">
+      <rect>
+       <x>490</x>
+       <y>220</y>
+       <width>30</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>+</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_10">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>220</y>
+       <width>50</width>
+       <height>30</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_11">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>220</y>
+       <width>50</width>
+       <height>30</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_12">
+     <property name="geometry">
+      <rect>
+       <x>280</x>
+       <y>220</y>
+       <width>50</width>
+       <height>30</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_13">
+     <property name="geometry">
+      <rect>
+       <x>350</x>
+       <y>220</y>
+       <width>50</width>
+       <height>30</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_14">
+     <property name="geometry">
+      <rect>
+       <x>420</x>
+       <y>220</y>
+       <width>50</width>
+       <height>30</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_10">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>-30</y>
+       <width>80</width>
+       <height>80</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>[  目前时间:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_11">
+     <property name="geometry">
+      <rect>
+       <x>370</x>
+       <y>-30</y>
+       <width>67</width>
+       <height>80</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>(s)  ]</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="LABLE_TIME">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>-30</y>
+       <width>100</width>
+       <height>80</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_12">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>-30</y>
+       <width>90</width>
+       <height>80</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>,系统已运行:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="LABLE_RUN_TIME">
+     <property name="geometry">
+      <rect>
+       <x>310</x>
+       <y>0</y>
+       <width>50</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_13">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>220</y>
+       <width>130</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>+  系统已运行时间</string>
+     </property>
+    </widget>
+    <widget class="Line" name="line">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>220</y>
+       <width>3</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+    </widget>
+    <widget class="Line" name="line_2">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>220</y>
+       <width>3</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+    </widget>
+    <widget class="Line" name="line_3">
+     <property name="geometry">
+      <rect>
+       <x>340</x>
+       <y>220</y>
+       <width>3</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+    </widget>
+    <widget class="Line" name="line_4">
+     <property name="geometry">
+      <rect>
+       <x>410</x>
+       <y>220</y>
+       <width>3</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_4">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>310</y>
+      <width>630</width>
+      <height>190</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>储外等待队列</string>
+    </property>
+    <widget class="QTableWidget" name="TABLE_WAIT">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>610</width>
+       <height>160</height>
+      </rect>
+     </property>
+     <column>
+      <property name="text">
+       <string>作业</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>到达时间</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>需运行时间(S)</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>内存需要(KB)</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>磁带机需要</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>已运行时间(S)</string>
+      </property>
+     </column>
+    </widget>
+   </widget>
+   <widget class="QTabWidget" name="tabWidget">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>330</y>
+      <width>311</width>
+      <height>310</height>
+     </rect>
+    </property>
+    <property name="currentIndex">
+     <number>1</number>
+    </property>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>空闲分区表</string>
+     </attribute>
+     <widget class="QTableWidget" name="TABLE_FREE_LIST">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>311</width>
+        <height>280</height>
+       </rect>
+      </property>
+      <column>
+       <property name="text">
+        <string>序号</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>首地址</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>空间大小(KB)</string>
+       </property>
+      </column>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_2">
+     <attribute name="title">
+      <string>作业分配表</string>
+     </attribute>
+     <widget class="QTableWidget" name="TABLE_USED_LIST">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>311</width>
+        <height>280</height>
+       </rect>
+      </property>
+      <column>
+       <property name="text">
+        <string>作业</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>分配首地址</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>分配大小(KB)</string>
+       </property>
+      </column>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="BTN_RESUME">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>270</y>
+      <width>250</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>重置</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="BTN_START">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>270</y>
+      <width>250</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>开始</string>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_5">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>510</y>
+      <width>630</width>
+      <height>190</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>运行完成作业</string>
+    </property>
+    <widget class="QTableWidget" name="TABLE_FINISH">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>610</width>
+       <height>150</height>
+      </rect>
+     </property>
+     <column>
+      <property name="text">
+       <string>作业</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>到达时间</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>需运行时间(S)</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>内存需要(KB)</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>磁带机需要</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>完成时间</string>
+      </property>
+     </column>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="BTN_TAPE_FOUR">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>590</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="BTN_TAPE_TWO">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>450</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>330</y>
+      <width>50</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>磁带机</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="BTN_TAPE_THREE">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>520</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="BTN_TAPE_ONE">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>380</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>660</y>
+      <width>70</width>
+      <height>30</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_2">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>660</y>
+      <width>80</width>
+      <height>30</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>660</y>
+      <width>90</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>平均周转时间</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>660</y>
+      <width>121</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>带权平均周转时间</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>660</y>
+      <width>20</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>(S)</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>490</x>
+      <y>660</y>
+      <width>20</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>(S)</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>390</y>
+      <width>20</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>①</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_7">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>460</y>
+      <width>20</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>②</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_8">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>530</y>
+      <width>20</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>③</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_9">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>600</y>
+      <width>20</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>④</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
