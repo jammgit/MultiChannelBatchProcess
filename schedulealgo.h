@@ -52,7 +52,6 @@ protected:
     std::list<PCB> m_PCBList_Finish;
     SCHE_STATE m_State;
     int m_Timer;
-    pthread_mutex_t m_Mutex;
 };
 
 class FCFS : public ScheduleAlgorithm

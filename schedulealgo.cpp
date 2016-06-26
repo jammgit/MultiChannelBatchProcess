@@ -4,19 +4,17 @@
 
 
 ScheduleAlgorithm::ScheduleAlgorithm(){
-    m_Mutex = PTHREAD_MUTEX_INITIALIZER;
     m_State = SCHE_NULL;
 }
 
 ScheduleAlgorithm::~ScheduleAlgorithm(){
-    pthread_mutex_destroy(&m_Mutex);
 }
 
 void ScheduleAlgorithm::AddNewJob(const PCB &pcb)
 {
-    pthread_mutex_lock(&m_Mutex);
+
     m_PCBList_Wait.push_back(pcb);
-    pthread_mutex_unlock(&m_Mutex);
+
 }
 
 SCHE_STATE ScheduleAlgorithm::GetState()
@@ -36,20 +34,17 @@ void ScheduleAlgorithm::DeleteWidget(MainWindow *widget)
 
 void ScheduleAlgorithm::ClearJobs()
 {
-    pthread_mutex_lock(&m_Mutex);
+
     m_PCBList_Run.clear();
     m_PCBList_Wait.clear();
     m_PCBList_Finish.clear();
     m_State = SCHE_NULL;
-    pthread_mutex_unlock(&m_Mutex);
+
 }
 
 void ScheduleAlgorithm::Exec()
 {
-    pthread_mutex_lock(&m_Mutex);
-    qDebug() << m_PCBList_Run.size() << '\n'
-             << m_PCBList_Wait.size() << '\n'
-             << m_PCBList_Finish.size() << '\n';
+
     if (m_PCBList_Run.empty())
     {
         if (!m_PCBList_Wait.empty())
@@ -88,7 +83,7 @@ void ScheduleAlgorithm::Exec()
             m_State = SCHE_RENEW_TIME;
         }
     }
-    pthread_mutex_unlock(&m_Mutex);
+
     /* Renew all widget */
     size_t size = m_WidgetList.size();
     auto iter = m_WidgetList.begin();
@@ -120,7 +115,7 @@ const std::list<PCB>* ScheduleAlgorithm::GetFinishList()
 ///////////////////////----LEVEL----///////////////////////////////
 void LEVEL::AddNewJob(const PCB &pcb)
 {
-    pthread_mutex_lock(&m_Mutex);
+
     size_t size = m_PCBList_Wait.size();
     auto iter = m_PCBList_Wait.begin();
     size_t i;
@@ -135,16 +130,12 @@ void LEVEL::AddNewJob(const PCB &pcb)
     }
     if (i == size)
         m_PCBList_Wait.push_back(pcb);
-    pthread_mutex_unlock(&m_Mutex);
+
 }
 ///////////////////////////////////////////////////////////////////
 ///////////////////////----RR----///////////////////////////////
 void RR::Exec()
 {
-    pthread_mutex_lock(&m_Mutex);
-    qDebug() << m_PCBList_Run.size() << '\n'
-             << m_PCBList_Wait.size() << '\n'
-             << m_PCBList_Finish.size() << '\n';
     if (m_PCBList_Run.empty())
     {
         if (!m_PCBList_Wait.empty())
@@ -200,7 +191,7 @@ void RR::Exec()
             }
         }
     }
-    pthread_mutex_unlock(&m_Mutex);
+
     /* Renew all widget */
     size_t size = m_WidgetList.size();
     auto iter = m_WidgetList.begin();
@@ -215,7 +206,7 @@ void RR::Exec()
 ///////////////////////----SJF----///////////////////////////////
 void SJF::AddNewJob(const PCB &pcb)
 {
-    pthread_mutex_lock(&m_Mutex);
+
     size_t size = m_PCBList_Wait.size();
     size_t idx;
     auto iter = m_PCBList_Wait.begin();
@@ -233,19 +224,10 @@ void SJF::AddNewJob(const PCB &pcb)
     {
         m_PCBList_Wait.push_back(pcb);
     }
-    pthread_mutex_unlock(&m_Mutex);
+
 }
 void SJF::Exec()
 {
-    pthread_mutex_lock(&m_Mutex);
-    static int aaa = 0;
-    aaa++;
-    qDebug() << m_PCBList_Run.size() << '\n'
-             << m_PCBList_Wait.size() << '\n'
-             << m_PCBList_Finish.size() << '\n'
-             << "aaa=" << aaa << '\n';
-    if (!m_PCBList_Run.empty())
-        qDebug() << m_PCBList_Run.front().job_name;
     if (m_PCBList_Run.empty())
     {
         if (!m_PCBList_Wait.empty())
@@ -298,7 +280,7 @@ void SJF::Exec()
         iter->wait_time++;
         iter++;
     }
-    pthread_mutex_unlock(&m_Mutex);
+
     /* Renew all widget */
     size = m_WidgetList.size();
     auto iter1 = m_WidgetList.begin();
@@ -312,33 +294,33 @@ void SJF::Exec()
 ///////////////////////----PreeSJF----///////////////////////////////
 void PreeSJF::AddNewJob(const PCB &pcb)
 {
-    pthread_mutex_lock(&m_Mutex);
+
     if (!m_PCBList_Run.empty())
     {
         int left_time = m_PCBList_Run.front().need_time - m_PCBList_Run.front().exec_time;
 
         if (left_time > pcb.need_time - pcb.exec_time)
         {
-            pthread_mutex_unlock(&m_Mutex);
+
             SJF::AddNewJob(m_PCBList_Run.front());
 
-            pthread_mutex_lock(&m_Mutex);
+
             m_PCBList_Run.pop_front();
             m_PCBList_Run.push_front(pcb);
             m_Timer = m_PCBList_Run.front().exec_time;
             m_State = SCHE_PREE;
-            pthread_mutex_unlock(&m_Mutex);
+
         }
         else
         {
-            pthread_mutex_unlock(&m_Mutex);
+
             SJF::AddNewJob(pcb);
         }
 
     }
     else
     {
-        pthread_mutex_unlock(&m_Mutex);
+
         SJF::AddNewJob(pcb);
     }
 
@@ -356,11 +338,7 @@ void PreeSJF::Exec()
 void HRRN::Exec()
 {
     /* Calculate the max of Waitlist */
-    pthread_mutex_lock(&m_Mutex);
 
-    qDebug() << m_PCBList_Run.size() << '\n'
-             << m_PCBList_Wait.size() << '\n'
-             << m_PCBList_Finish.size() << '\n';
     if (m_PCBList_Run.empty())
     {
         if (!m_PCBList_Wait.empty())
@@ -414,7 +392,7 @@ void HRRN::Exec()
         iter->wait_time++;
         iter++;
     }
-    pthread_mutex_unlock(&m_Mutex);
+
 
     /* Renew all widget */
     size = m_WidgetList.size();
